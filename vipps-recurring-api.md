@@ -1363,8 +1363,25 @@ This API returns the following HTTP statuses in the responses:
 | `429 Too Many Requests`    | Look at [table below to view current rate limits](#rate-limiting) |
 | `500 Server Error`         | An internal Vipps problem.                                        |
 
-All error responses contains an `error` object in the body, with details of the
-problem.
+(Coming soon in V3) HTTP responses for errors follow the [RFC 7807](https://www.rfc-editor.org/rfc/rfc7807) standard.
+For example, when calling [`update agreement`][update-agreement-endpoint] endpoint with a stopped agreement,
+the response will be the following:
+
+```json
+{
+    "type": "https://vipps.no/problems/recurring/illegal-agreement-update",
+    "title": "Bad Request",
+    "status": 400,
+    "detail": "Illegal update",
+    "instance": "/vipps-recurring-merchant-api/v3/agreements/agr_nmgWS4e",
+    "contextId": "ef087f56-4281-494d-9591-5e4cf6fe05b5",
+    "extraDetails": [
+        {
+            "status": "Cannot modify an agreement which is not active."
+        }
+    ]
+}
+```
 
 ## Rate limiting
 
